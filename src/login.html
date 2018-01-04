@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>虚拟实验平台-登陆</title>
+	<link rel="stylesheet" href="css/rest.css">
+	<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+	<div id="wrp">
+		<div id="login">
+			<div id="title_div">
+				<p>虚拟实验平台用户登陆界面</p>
+			</div>
+			<form id="formid"  action = 'index.html' onsubmit = "return checkUser();" >
+	            <table>
+		              <tr>
+		                <td class="from_th">用户名:</td>
+		                <td><input type="text" value="" class="text2" name = "username" id = "userid"/></td>
+		              </tr>
+		              <tr>
+		                <td class="from_th">密&nbsp;&nbsp;&nbsp;码:</td>
+		                <td><input type="password" value="" class="text2" name = "userpass" id = "userpassid"/></td>
+		              </tr>
+		              <tr>
+		                <td class="from_th">&nbsp;</td>
+		                <td>
+		                    <input type="submit" value="登陆" class="btn2"/>         
+		                </td>
+		              </tr>
+	            </table>
+		</div>
+	</div>
+
+<script src="js/login.js"></script>
+</body>
+</html>

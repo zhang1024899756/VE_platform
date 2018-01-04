@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>实验页面</title>
+	<link rel="stylesheet" href="css/rest.css">
+	<link rel="stylesheet" href="css/experiment.css">
+	<script src="js/jquery-1.8.0.js"></script>
+    <script type="text/javascript" src="js/snippet/jquery.snippet.min.js"></script>
+    <script type="text/javascript" src="js/jtopo-min.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<div id="head-title">
+				<h3>静态路由配置实验</h3>
+			</div>
+		</div>
+
+		<div id="ve-canvas">
+			<div class="mask">
+				<input type="button" id="platform-btn" value="开始实验">
+				<p>点击“开始实验”按钮开始实验操作，“双击”组件添加</p>
+			</div>
+            <canvas width="1116px" height="444px" id="line-cvs"></canvas>
+			<input type="button" id="finish" value="完成实验">
+
+			<ul id="contextmenu" style="display:none;">	
+				<li><a>开机</a></li>
+				<li><a>连接设备</a></li>	
+				<li><a>设置</a></li>
+				<li><a>移除设备</a></li>
+			</ul>
+		</div>
+
+		<div id="component-ul">
+			<div class="div-h"><p>实验器材</p></div>
+
+			<ul>
+				<li class="li-item">
+					<img src="../source/12fsfv.png" width="60px" height="60px" name="路由器">
+					<p>路由器</p>
+				</li>
+				<li class="li-item">
+					<img src="../source/PC.png" width="60px" height="60px" name="计算机">
+					<p>计算机</p>
+				</li>
+				<li class="li-item">
+					<img src="../source/交换机.png" width="60px" height="60px" name="交换机">
+					<p>交换机</p>
+				</li>
+			</ul>
+
+		</div>
+
+		<div id="instructions">
+			<div class="div-h"><p>实验内容</p></div>
+			<div id="instru-content">
+				<div id="in-text">
+					<h3>【实验目的】了解路由器的路由表配置方法</h3>
+					<h3>【实验器材】两台安装windows系统的计算机，两台路由器</h3>
+					<h3>【实验任务】</h3>
+					<span>安图连接网络，按表在路由器R1和R2之间建立连接，实验路由器的IGRP协议的配置方法，并检测IGRP网络的有效性。<br></span>
+					<span>llllllllllllllllllllllllllllllllll略</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<script src="js/experiment.js"></script>
+</body>
+</html>

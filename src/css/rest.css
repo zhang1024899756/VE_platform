@@ -1,0 +1,5 @@
+*{margin: 0;padding: 0;}
+html,body {height: 100%;overflow: hidden;}
+body{font:14px "微软雅黑","宋体","Arial Narrow",HELVETICA;-webkit-text-size-adjust:100%;}
+li{list-style:none} 
+a{text-decoration:none;color: #ABB1B7; }
