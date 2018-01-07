@@ -30,22 +30,22 @@ $(document).ready(function () {
             
     var link = new JTopo.Link(tempNodeA, tempNodeZ)
 
-    
 
+    
 
     //添加组件封装
     function node(name,x, y) {
         var node = new JTopo.Node(name)
-        // if (name == '计算机') {
-        //     tempUrl = '../source/img/PC_关机.png'
-        //     node.setImage('../source/img/PC_关机.png',true)
-        // }if (name == '路由器') {
-        //     tempUrl = '../source/img/路由器.png'
-        //     node.setImage('../source/img/路由器.png',true)
-        // }if (name == '交换机') {
-        //     tempUrl = '../source/img/交换机_32_32.png'
-        //     node.setImage('../source/img/交换机_32_32.png',true)
-        // }
+        if (name == '计算机') {
+             tempUrl = '../source/img/PC_关机.png'
+             node.setImage('../source/img/PC_关机.png',true)
+         }if (name == '路由器') {
+             tempUrl = '../source/img/路由器.png'
+             node.setImage('../source/img/路由器.png',true)
+         }if (name == '交换机') {
+             tempUrl = '../source/img/交换机_32_32.png'
+             node.setImage('../source/img/交换机_32_32.png',true)
+         }
         node.setLocation(x, y)
         scene.add(node)
         //添加鼠标松开监听
@@ -65,10 +65,17 @@ $(document).ready(function () {
             }
             // 当前位置弹出菜单（div）
             $("#contextmenu").css({
-                top: event.pageY-70,
-                left: event.pageX
+                top: event.pageY - 50,
+                left: event.pageX + 10
             }).show();
         }
+    }
+    
+    //求差值函数
+    function diff(a,b){
+        var sum = a - b
+        if(sum <= 0){sum *= -1}
+        return sum
     }
     
     stage.click(function(event){
@@ -83,39 +90,48 @@ $(document).ready(function () {
     $("#contextmenu a").click(function(){
         var text = $(this).text()
         if (text == '关机') {
-            // if (currentNode.text == '计算机') {
-            //     tempUrl = '../source/img/PC_关机.png'
-            //     currentNode.setImage(tempUrl)
-            // }if (currentNode.text == '路由器') {
-            //     tempUrl = '../source/img/路由器.png'
-            //     currentNode.setImage(tempUrl)
-            // }if (currentNode.text == '交换机') {
-            //     tempUrl = '../source/img/交换机_32_32.png'
-            //     currentNode.setImage(tempUrl)
-            // }
+             if (currentNode.text == '计算机') {
+                 tempUrl = '../source/img/PC_关机.png'
+                 currentNode.setImage(tempUrl)
+             }if (currentNode.text == '路由器') {
+                 tempUrl = '../source/img/路由器.png'
+                 currentNode.setImage(tempUrl)
+             }if (currentNode.text == '交换机') {
+                 tempUrl = '../source/img/交换机_32_32.png'
+                 currentNode.setImage(tempUrl)
+             }
+            currentNode.fillColor = '22,124,255'
             currentNode._status = "close"
         }
         if (text == '开机') {
-            // if (currentNode.text == '计算机') {
-            //     tempUrl = '../source/img/PC_32_26.png'
-            //     currentNode.setImage(tempUrl)
-            // }if (currentNode.text == '路由器') {
-            //     tempUrl = '../source/img/路由器_开机.png'
-            //     currentNode.setImage(tempUrl)
-            // }if (currentNode.text == '交换机') {
-            //     tempUrl = '../source/img/交换机_开机.png'
-            //     currentNode.setImage(tempUrl)
-            // }
+             if (currentNode.text == '计算机') {
+                 tempUrl = '../source/img/PC_32_26.png'
+                 currentNode.setImage(tempUrl)
+             }if (currentNode.text == '路由器') {
+                 tempUrl = '../source/img/路由器_开机.png'
+                 currentNode.setImage(tempUrl)
+             }if (currentNode.text == '交换机') {
+                 tempUrl = '../source/img/交换机_开机.png'
+                 currentNode.setImage(tempUrl)
+             }
+            currentNode.fillColor = '0, 0, 255'
             currentNode._status = "open"
         }
         if (text == '连接设备') {
-            console.log(currentNode)
             if (beginNode == null) {
                 beginNode = currentNode
                 scene.add(link);
                 tempNodeA.setLocation(currentNode.x, currentNode.y)
                 tempNodeZ.setLocation(currentNode.x, currentNode.y)
+                $(this).text('断开连接')
             }
+        }
+        if(text == '断开连接'){
+            //var link = findElements(function(e){return e.nodeZ == currentNode })
+            
+            //console.log(elem)
+            //scene.remove(currentNode.inLinks[0])
+            $(this).text('连接设备')
         }
         if (text == '设置') {
 
@@ -165,27 +181,26 @@ $(document).ready(function () {
 
     //开始实验按钮
     $('#platform-btn').click(function () {
-    	$('.mask').hide('fast')
-    	$('#finish').css('left','30px')
-    	$('#navigation').animate({ width: '40px' }, 'slow')
+        $('.mask').hide('fast')
+        $('#finish').css('left','30px')
+        $('#navigation').animate({ width: '40px' }, 'slow')
     })
 
 
 
     //双击添加组件
     $('.li-item').dblclick(function () {
-    	var ifoff = $('.mask').css('display')
-    	if (ifoff == 'none') {
-	    	var imgName = $(this).find('img').attr('name')
+        var ifoff = $('.mask').css('display')
+        if (ifoff == 'none') {
+            var imgName = $(this).find('img').attr('name')
             var _node = node(imgName,100,100)
             nodeArr.push(_node._id)
-            console.log(_node)
-	    }else{
-	    	$('#platform-btn').animate({opacity: '.8'},300)
-	    	$('#platform-btn').animate({opacity: '1'},300)
-	    	$('#platform-btn').animate({opacity: '.8'},300)
-	    	$('#platform-btn').animate({opacity: '1'},300)
-	    }
+        }else{
+            $('#platform-btn').animate({opacity: '.8'},300)
+            $('#platform-btn').animate({opacity: '1'},300)
+            $('#platform-btn').animate({opacity: '.8'},300)
+            $('#platform-btn').animate({opacity: '1'},300)
+        }
     })
     
     
