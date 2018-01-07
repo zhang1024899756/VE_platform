@@ -71,12 +71,12 @@ $(document).ready(function () {
         }
     }
     
-    //求差值函数
-    function diff(a,b){
-        var sum = a - b
-        if(sum <= 0){sum *= -1}
-        return sum
-    }
+	//求差值函数
+	function diff(a,b){
+		var sum = a - b
+		if(sum <= 0){sum *= -1}
+		return sum
+	}
     
     stage.click(function(event){
         if(event.button == 0){// 右键
@@ -114,7 +114,7 @@ $(document).ready(function () {
                  tempUrl = '../source/img/交换机_开机.png'
                  currentNode.setImage(tempUrl)
              }
-            currentNode.fillColor = '0, 0, 255'
+			currentNode.fillColor = '0, 0, 255'
             currentNode._status = "open"
         }
         if (text == '连接设备') {
@@ -123,16 +123,16 @@ $(document).ready(function () {
                 scene.add(link);
                 tempNodeA.setLocation(currentNode.x, currentNode.y)
                 tempNodeZ.setLocation(currentNode.x, currentNode.y)
-                $(this).text('断开连接')
+				$(this).text('断开连接')
             }
         }
-        if(text == '断开连接'){
-            //var link = findElements(function(e){return e.nodeZ == currentNode })
-            
-            //console.log(elem)
-            //scene.remove(currentNode.inLinks[0])
-            $(this).text('连接设备')
-        }
+		if(text == '断开连接'){
+			//var link = findElements(function(e){return e.nodeZ == currentNode })
+			
+			//console.log(elem)
+			//scene.remove(currentNode.inLinks[0])
+			$(this).text('连接设备')
+		}
         if (text == '设置') {
 
         }
@@ -181,26 +181,26 @@ $(document).ready(function () {
 
     //开始实验按钮
     $('#platform-btn').click(function () {
-        $('.mask').hide('fast')
-        $('#finish').css('left','30px')
-        $('#navigation').animate({ width: '40px' }, 'slow')
+    	$('.mask').hide('fast')
+    	$('#finish').css('left','30px')
+    	$('#navigation').animate({ width: '40px' }, 'slow')
     })
 
 
 
     //双击添加组件
     $('.li-item').dblclick(function () {
-        var ifoff = $('.mask').css('display')
-        if (ifoff == 'none') {
-            var imgName = $(this).find('img').attr('name')
+    	var ifoff = $('.mask').css('display')
+    	if (ifoff == 'none') {
+	    	var imgName = $(this).find('img').attr('name')
             var _node = node(imgName,100,100)
             nodeArr.push(_node._id)
-        }else{
-            $('#platform-btn').animate({opacity: '.8'},300)
-            $('#platform-btn').animate({opacity: '1'},300)
-            $('#platform-btn').animate({opacity: '.8'},300)
-            $('#platform-btn').animate({opacity: '1'},300)
-        }
+	    }else{
+	    	$('#platform-btn').animate({opacity: '.8'},300)
+	    	$('#platform-btn').animate({opacity: '1'},300)
+	    	$('#platform-btn').animate({opacity: '.8'},300)
+	    	$('#platform-btn').animate({opacity: '1'},300)
+	    }
     })
     
     
