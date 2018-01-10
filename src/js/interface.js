@@ -11,9 +11,9 @@ $(document).ready(function () {
     	}
     )
 
-    $('#internet_icon').dbclick(function () {
-    	// body...
-    })
+    // $('#internet_icon').dbclick(function () {
+    // 	// body...
+    // })
 
 
 })
