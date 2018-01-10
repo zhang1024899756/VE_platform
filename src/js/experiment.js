@@ -37,14 +37,14 @@ $(document).ready(function () {
     function node(name,x, y) {
         var node = new JTopo.Node(name)
         if (name == '计算机') {
-             tempUrl = '../source/img/PC_关机.png'
-             node.setImage('../source/img/PC_关机.png',true)
+             tempUrl = '../source/img/PC_close.png'
+             node.setImage(tempUrl,true)
          }if (name == '路由器') {
-             tempUrl = '../source/img/路由器.png'
-             node.setImage('../source/img/路由器.png',true)
+             tempUrl = '../source/img/router_close.png'
+             node.setImage(tempUrl,true)
          }if (name == '交换机') {
-             tempUrl = '../source/img/交换机_32_32.png'
-             node.setImage('../source/img/交换机_32_32.png',true)
+             tempUrl = '../source/img/switches_close.png'
+             node.setImage(tempUrl,true)
          }
         node.setLocation(x, y)
         scene.add(node)
@@ -91,30 +91,30 @@ $(document).ready(function () {
         var text = $(this).text()
         if (text == '关机') {
              if (currentNode.text == '计算机') {
-                 tempUrl = '../source/img/PC_关机.png'
+                 tempUrl = '../source/img/PC_close.png'
                  currentNode.setImage(tempUrl)
              }if (currentNode.text == '路由器') {
-                 tempUrl = '../source/img/路由器.png'
+                 tempUrl = '../source/img/router_close.png'
                  currentNode.setImage(tempUrl)
              }if (currentNode.text == '交换机') {
-                 tempUrl = '../source/img/交换机_32_32.png'
+                 tempUrl = '../source/img/switches_close.png'
                  currentNode.setImage(tempUrl)
              }
-            currentNode.fillColor = '22,124,255'
+            //currentNode.fillColor = '22,124,255'
             currentNode._status = "close"
         }
         if (text == '开机') {
              if (currentNode.text == '计算机') {
-                 tempUrl = '../source/img/PC_32_26.png'
+                 tempUrl = '../source/img/PC_open.png'
                  currentNode.setImage(tempUrl)
              }if (currentNode.text == '路由器') {
-                 tempUrl = '../source/img/路由器_开机.png'
+                 tempUrl = '../source/img/router_open.png'
                  currentNode.setImage(tempUrl)
              }if (currentNode.text == '交换机') {
-                 tempUrl = '../source/img/交换机_开机.png'
+                 tempUrl = '../source/img/switches_open.png'
                  currentNode.setImage(tempUrl)
              }
-			currentNode.fillColor = '0, 0, 255'
+			//currentNode.fillColor = '0, 0, 255'
             currentNode._status = "open"
         }
         if (text == '连接设备') {
@@ -134,7 +134,7 @@ $(document).ready(function () {
 			$(this).text('连接设备')
 		}
         if (text == '设置') {
-
+            $('#interface').css('display','block')
         }
         if (text == '移除设备') {
             nodeArr.splice(currentNode._id,1)
@@ -202,9 +202,5 @@ $(document).ready(function () {
 	    	$('#platform-btn').animate({opacity: '1'},300)
 	    }
     })
-    
-    
-
-
 
 })
