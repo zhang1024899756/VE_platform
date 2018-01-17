@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="lib/jquery-ui/themes/default/jquery-ui.css">
+	<link rel="stylesheet" href="lib/jquery-lwd/themes/windows2000/jquery-lwd.css">
+	<style>
+		#start_window{width: 150px;height: 255px;position: absolute;left: 0;bottom: 32px;background-color: rgb(212, 208, 200);border-top: 1px solid white;border-right: 2px solid #4F4F4F;border-bottom: 2px solid #4F4F4F;border-left: 1px solid white;}
+		#start_window ul{width: 100%;height: 100%;}
+		#start_window ul li{display: block;width: 100%;height: 40px;line-height: 40px;font-size: 14px;}
+		#start_window ul li:active{width: 98%; height: 37px; border-top: 2px solid #4F4F4F;border-right: 1px solid white; border-bottom: 1px solid white;border-left: 2px solid #4F4F4F;}
+		#start_window ul hr{width: 90%;margin: 0 auto;border: none;border-top: 1px solid #8F8F8F;}
+		#internet_icon{width: 40px;height: 50px;position: relative;margin:30px; color: white;}
+		#internet_icon:hover{border: 1px solid #6495ED;margin:29px;}
+	</style>
+</head>
+<body>
+	<div 
+	    id="taskbar" 
+	    data-clock="true" 
+	    data-startbutton="开始">
+	</div>
+	<div id="start_window" style="display:none;">
+	    <ul>
+	        <li>程序</li>
+	        <li>文档</li>
+	        <li>设置</li>
+	        <li>帮助</li>
+	        <li>运行</li>
+	        <hr>
+	        <li>注销（退出设置）</li>
+	    </ul>
+	</div>
+	<div id="internet_icon">
+	    <img src="../source/img/win7/mycomputer.png" width="32px" height="32px">
+	    <p>IPv4</p>
+	</div>
+ 
+	
+					
+<script src="js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="lib/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="lib/jquery-lwd/jquery-lwd.js"></script>
+<!-- 操作界面模块js引入 -->
+<script src="js/interface.js"></script>
+</body>
+</html>

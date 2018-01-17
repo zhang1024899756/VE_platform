@@ -5,7 +5,8 @@
                    this.serializedProperties = ["elementType"],
                    this.propertiesStack = [],
                    this._id = "" + (new Date).getTime(),
-                   this._status = "close"
+                   this._status = "close",
+                   this._internet = null
            },
            this.distroy = function() {},
            this.removeHandler = function() {},

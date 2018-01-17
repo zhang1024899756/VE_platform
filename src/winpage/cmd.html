@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+		#cmdwin{width: 100%;height: 100%;overflow: scroll;color: white;background: black;}
+	</style>
+</head>
+<body>
+	<textarea id="cmdwin" >Microsoft Windows [版本 10.0.16299.125]
+(c) 2017 Microsoft Corporation。保留所有权利。
+
+C:\Users\zhangxinyu></textarea>
+
+<script>
+	var answerip = "   Windows IP 配置     以太网适配器 以太网:   媒体状态  . . . . . . . . . . . . : 媒体已断开连接      连接特定的 DNS 后缀 . . . . . . . :  无线局域网适配器 本地连接* 1:  媒体状态  . . . . . . . . . . . . : 媒体已断开连接  连接特定的 DNS 后缀 . . . . . . . :     无线局域网适配器 WLAN:     连接特定的 DNS 后缀 . . . . . . . :  IPv6 地址 . . . . . . . . . . . . : 240e:b4:2c:20f3:b1b7:ad4a:b33d:a17c  临时 IPv6 地址. . . . . . . . . . : 240e:b4:2c:20f3:3058:dd68:20e3:d422  本地链接 IPv6 地址. . . . . . . . : fe80::b1b7:ad4a:b33d:a17c%2  IPv4 地址 . . . . . . . . . . . . : 119.97.51.252  子网掩码  . . . . . . . . . . . . : 255.255.255.0  默认网关. . . . . . . . . . . . . : fe80::2a6e:d4ff:fe98:8db7%2  119.97.51.1     以太网适配器 蓝牙网络连接:   媒体状态  . . . . . . . . . . . . : 媒体已断开连接  连接特定的 DNS 后缀 . . . . . . . :     隧道适配器 Teredo Tunneling Pseudo-Interface:  连接特定的 DNS 后缀 . . . . . . . :  IPv6 地址 . . . . . . . . . . . . : 2001:0:9d38:953c:ce0:158b:889e:cc03  本地链接 IPv6 地址. . . . . . . . : fe80::ce0:158b:889e:cc03%14  默认网关. . . . . . . . . . . . . :       ";
+	var cmdhead = $('#cmdwin').val()
+    var answercon = answerip.replace(/  /g,'\r')
+    console.log(event.which)
+    var cmdwintext = $('#cmdwin').val()
+	$('#cmdwin').keydown(function (event) {
+		
+		switch(event.which){
+			case(13):
+			  $('#cmdwin').val(cmdwintext+answercon+cmdhead)
+			  break;
+		}
+		cmdwintext = cmdwintext = $('#cmdwin').val()
+	}).css("ime-mode", "disabled").parent().css('padding','0px')
+
+
+
+
+</script>
+</body>
+</html>

@@ -8,7 +8,6 @@ $.widget('custom.window', $.ui.dialog, {
         //console.log('_create');
         var objThis = this;
         this._super();
-        console.log(this);
 
         /* START - set position and containment for draggable by appendTo-option */
         if(this.options.appendTo != '' && this.options.appendTo != 'body' && this.options.appendTo != 'window'){
@@ -224,12 +223,11 @@ $.widget('custom.window', $.ui.dialog, {
             $objTaskbar.find('button[data-ariadescribedby="'+this.uiDialog.attr('aria-describedby')+'"]').remove();
         }
 
+        this._destroy();
         this._focusNextOpenWindow();
     },
 
     _maximize: function () {
-        console.log('_maximize');
-        console.log(this.options.height);
 
         if(this.options.maximizable === true){
             this.uiDialogTitlebar.find('button.lwd-window-titlebar-maximize>span.ui-icon-maximizethick').removeClass('ui-icon-maximizethick').addClass('ui-icon-restorethick');
@@ -311,6 +309,7 @@ $.widget('custom.window', $.ui.dialog, {
 
         this.options.resizable = false;
         this.options.minimized = true;
+        console.log(this.options.minimized)
     },
 
     _restore: function () {
@@ -428,7 +427,7 @@ $.widget('custom.window', $.ui.dialog, {
     },
 
     _drag: function () {
-        console.log('_drag');
+ 
 
         var intLeft = Math.round(parseFloat(this.uiDialog.position().left));
         var intTop = Math.round(parseFloat(this.uiDialog.position().top));
@@ -485,8 +484,8 @@ $.widget('custom.window', $.ui.dialog, {
         }
         */
 
-        console.log(strRichtung);
-        console.log('-------------');
+        // console.log(strRichtung);
+        // console.log('-------------');
 
         /*console.log(intLeft);
         console.log(intTop);
@@ -503,7 +502,7 @@ $.widget('custom.window', $.ui.dialog, {
     },
 
     _adjustWindow : function () {
-        console.log('_adjust');
+        // console.log('_adjust');
 
         if(this.options.appendTo != '' && this.options.appendTo != 'body' && this.options.appendTo != 'window'){
             var intMaxResizeX = Math.round(parseFloat($(this.options.appendTo).width()));
@@ -532,10 +531,10 @@ $.widget('custom.window', $.ui.dialog, {
             intMaxWidth = intMaxWidthTmp;
             intMaxHeight = intMaxHeightTmp;*/
 
-            console.log('maxW: '+Math.round(parseFloat(this.uiDialog.position().left)));
-            console.log('maxH: '+Math.round(parseFloat(this.uiDialog.position().top)));
-            console.log('maxW2: '+intMaxResizeX);
-            console.log('maxH2: '+intMaxResizeY);
+            // console.log('maxW: '+Math.round(parseFloat(this.uiDialog.position().left)));
+            // console.log('maxH: '+Math.round(parseFloat(this.uiDialog.position().top)));
+            // console.log('maxW2: '+intMaxResizeX);
+            // console.log('maxH2: '+intMaxResizeY);
 
             //this.options.maxWidth = intMaxWidth;
             //this.options.maxHeight = intMaxHeight;
@@ -561,6 +560,10 @@ $.widget('custom.window', $.ui.dialog, {
             maxWidth: intMaxWidth,
             maxHeight: intMaxHeight
         });*/
+    },
+
+    _destroy: function() {
+        this.element.parent().remove()
     }
     /* END - Methods */
 });
@@ -572,7 +575,7 @@ $.widget('custom.taskbar', {
         var $objTaskbar = $('#taskbar');
 
         if(this.options.startbutton != '' && this.options.startbutton != undefined){
-            var $objStartButton = $('<button id="#startmenu">'+this.options.startbutton+'</button><div id="startbutton-spacer">&nbsp;</div>');
+            var $objStartButton = $('<button id="startmenu">'+this.options.startbutton+'</button><div id="startbutton-spacer">&nbsp;</div>');
             $objTaskbar.append($objStartButton);
         }
 
@@ -596,6 +599,7 @@ $.widget('custom.taskbar', {
 
 $(document).ready(function () {
     $('div#taskbar').each(function () {
+        
         if($(this).attr('data-clock') == 'true'){
             setInterval(function () {
                 var objDate = new Date();
@@ -643,9 +647,10 @@ $(document).ready(function () {
         $(this).window(options);
     });
 
-    $('.lwd-taskbar-button').on('click', function () {
+    $(document).on('click','.lwd-taskbar-button', function () {
         var strAriaDescribedBy = $(this).attr('data-ariadescribedby');
         var $objWindow = $('#'+strAriaDescribedBy).window('instance');
+
 
         if($objWindow.options.minimized){
             $objWindow._restore();

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+		#ip-cont{width: 100%;height: 100%;text-align: left;position: relative;}
+		#ip-h{display: block;padding-top: 20px;}
+        form{margin-top: 10px;}
+        .ipset li{display: block;height: 22px;margin-top: 10px; padding-left: 10px; position: relative; line-height: 22px;}
+
+        /*ip框样式*/
+		.inputip{width: 120px;height: 22px; border: 1px solid #333333;position: absolute;top: 0; right: 0;}
+		.inputip input{width: 22%;height: 20px; border: none;padding: 0;background: rgb(212, 208, 200);}
+		.inputip strong{width: 4%;}
+        
+        #ip_sbmit{width: 70px;height: 25px;border-top: 1px solid white;border-right: 2px solid #4F4F4F;border-bottom: 2px solid #4F4F4F;border-left: 1px solid white;position: absolute;right: 0px;bottom: 0px;}
+        #ip_sbmit:active{border-top: 2px solid #4F4F4F;border-right: 1px solid white; border-bottom: 1px solid white;border-left: 2px solid #4F4F4F;}
+	</style>
+</head>
+<body>
+	<div id="ip-cont">
+		<span id="ip-h">
+			&nbsp;&nbsp;&nbsp;&nbsp;如果网络支持此功能，则可以获取自动指派的ip设置。否则你需要从网络系统管理员处获得适当的ip设置。
+		</span>
+		<form>
+			<input type="radio" name="ip_set" value="male">自动获得ip地址<br>
+			<input type="radio" name="ip_set" value="female">使用下面的ip地址：
+            <div class="ipset">
+            	<ul>
+            		<li>ip地址：<div class="inputip" id="ip_1">
+						<input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/></div>
+			        </li>
+            		<li>子网掩码：<div class="inputip" id="ip_2">
+						<input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/></div>
+				    </li>
+            		<li>默认网关：<div class="inputip" id="ip_3">
+						<input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/></div>
+					</li>
+            	</ul>
+            </div>
+		</form>
+		<form>
+			<input type="radio" name="sex" value="male">自动获得DNS服务器地址<br>
+			<input type="radio" name="sex" value="female">使用下面DNS服务器地址：
+			<div class="ipset">
+            	<ul>
+            		<li>首选DNS服务器：<div class="inputip" id="dns_1">
+						<input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/></div>
+					</li>
+            		<li>备用DNS服务器：<div class="inputip" id="dns_2">
+						<input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/><strong>.</strong><input type="ip" maxlength="3"/></div>
+					</li>
+            	</ul>
+            </div>
+		</form>
+		<button id="ip_sbmit">确定</button>
+	</div>
+
+<!-- <script src="./js/jquery-1.8.0.js"></script> -->
+<script>
+
+	if (!$) {
+		alert('jquery文件引入失败，请检查网络连接或引入本地文件')
+	}
+    
+    //设置IP输入规范
+	$("input[type='ip']").keyup(function(){  //keyup事件处理 
+
+	    $(this).val($(this).val().replace(/[^\d]/g,''));  
+
+	}).bind("paste",function(){  //CTR+V事件处理 
+
+	    $(this).val($(this).val().replace(/[^\d]/g,''));  
+
+	}).each(function (i) {   //对输入限值
+		if (i == 0) {
+			$(this).bind("blur",function () {
+				var myval = $(this).val()
+				if (myval == '') {
+				}else if (myval <= 0 || myval > 233 || myval == 127) {
+					alert("输入值错误！请输入1~233且不为127的值！")
+					$(this).val('')
+				}
+			})
+		}else{
+			$(this).bind("blur",function () {
+				var myval = $(this).val()
+				if (myval < 0 || myval > 255) {
+					alert("输入值错误！请输入0~255的值！")
+					$(this).val('')
+				}
+			})
+		}
+	}).css("ime-mode", "disabled");  //CSS设置输入法不可用
+</script>
+</body>
+</html>

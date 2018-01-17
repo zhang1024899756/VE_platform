@@ -1,10 +1,10 @@
 $(document).ready(function () {
     //判断浏览器是否为chrome
-    var browser = navigator.userAgent.toLowerCase().indexOf("chrome")
-    if (browser == -1) {
-        $('html,body').css('overflow','hidden')
-        $('#wrap').addClass('hide-scroll')
-    }
+    // var browser = navigator.userAgent.toLowerCase().indexOf("chrome")
+    // if (browser == -1) {
+    //     $('html,body').css('overflow','hidden')
+    //     $('#wrap').addClass('hide-scroll')
+    // }
     
     //初始化拓扑绘画框架
     var canvas = document.getElementById("line-cvs")
@@ -17,7 +17,7 @@ $(document).ready(function () {
     var currentNode = null     //当前节点
     var nodeArr = new Array()   //所有节点
     var beginNode = null        //起始节点
-    var tempUrl = ''
+    var tempUrl = ''          //临时路径容器
     
     
 
@@ -30,10 +30,22 @@ $(document).ready(function () {
             
     var link = new JTopo.Link(tempNodeA, tempNodeZ)
 
+    /*在link原型上封装一个添加节点方法用来显示删除连线按钮*/
+    JTopo.Link.prototype.addcenternode = function(thisL) {
+        this.cnode = new JTopo.CircleNode('X')
+        this.cnode.radius = 5
+        this.cnode.fillColor = '0,0,0'
+        this.cnode.textPosition = 'Middle_Center'
+        scene.add(this.cnode)
+        this.cnode.addEventListener('click',function () {
+            scene.remove(thisL)
+            scene.remove(this)
+        })
+    }
 
     
 
-    //添加组件封装
+    //添加组件函数
     function node(name,x, y) {
         var node = new JTopo.Node(name)
         if (name == '计算机') {
@@ -55,8 +67,11 @@ $(document).ready(function () {
         })
         return node
     }
-
+    
+    //右键函数
     function handler(event) {
+        //console.log('X:'+event.pageX + ' ' + 'Y:' + event.pageY)
+
         if (event.button == 2) { // 右键
             if (currentNode._status == "open") {
                 $("#contextmenu").children().children().first().text('关机')
@@ -72,11 +87,12 @@ $(document).ready(function () {
     }
     
 	//求差值函数
-	function diff(a,b){
-		var sum = a - b
-		if(sum <= 0){sum *= -1}
-		return sum
-	}
+	// function diff(a,b){
+	// 	var sum = a - b
+	// 	if(sum <= 0){sum *= -1}
+	// 	return sum
+	// }
+
     
     stage.click(function(event){
         if(event.button == 0){// 右键
@@ -123,25 +139,24 @@ $(document).ready(function () {
                 scene.add(link);
                 tempNodeA.setLocation(currentNode.x, currentNode.y)
                 tempNodeZ.setLocation(currentNode.x, currentNode.y)
-				$(this).text('断开连接')
+				//$(this).text('断开连接')
             }
         }
-		if(text == '断开连接'){
+		/*if(text == '断开连接'){
 			//var link = findElements(function(e){return e.nodeZ == currentNode })
 			
 			//console.log(elem)
 			//scene.remove(currentNode.inLinks[0])
 			$(this).text('连接设备')
-		}
-        if (text == '设置') {
-            $('#interface').css('display','block')
+		}*/
+        if (text == '设置' && currentNode._status == "open") {
+            $('#interface').css('display','block').load('interface.html')
         }
         if (text == '移除设备') {
             nodeArr.splice(currentNode._id,1)
             scene.remove(currentNode)
             currentNode = null
         }
-
         $("#contextmenu").hide()
     })
 
@@ -177,6 +192,39 @@ $(document).ready(function () {
      scene.mousemove(function(e) {
          tempNodeZ.setLocation(e.x, e.y)
      })
+     
+     /*双击删除连线*/
+    scene.dbclick(function (e) {
+        var thisL = e.target
+        if (thisL.elementType == 'link') {
+            thisL.addcenternode(thisL)
+            thisL.paintPath=function(a, b) {
+                if(this.cnode){
+                    this.cnode.cx=this.nodeA.cx+(this.nodeZ.cx-this.nodeA.cx)/2;
+                    this.cnode.cy=this.nodeA.cy+(this.nodeZ.cy-this.nodeA.cy)/2;
+                }
+                if (this.nodeA === this.nodeZ) return void this.paintLoop(a);
+                a.beginPath(),
+                        a.moveTo(b[0].x, b[0].y);
+                for (var c = 1; c < b.length; c++) {
+
+                    null == this.dashedPattern ? (
+                            (null==this.PointPathColor?a.lineTo(b[c].x, b[c].y):a.JtopoDrawPointPath(b[c - 1].x, b[c - 1].y, b[c].x, b[c].y, a.strokeStyle,this.PointPathColor))
+                    ) : a.JTopoDashedLineTo(b[c - 1].x, b[c - 1].y, b[c].x, b[c].y, this.dashedPattern)
+                };
+                if (a.stroke(), a.closePath(), null != this.arrowsRadius) {
+                    var d = b[b.length - 2],
+                            e = b[b.length - 1];
+                    this.paintArrow(a, d, e)
+                }
+            }
+            thisL.click(function () {
+                if (this.cnode) {
+                    scene.remove(this.cnode)
+                }
+            })
+        }
+    })
   
 
     //开始实验按钮
@@ -185,8 +233,6 @@ $(document).ready(function () {
     	$('#finish').css('left','30px')
     	$('#navigation').animate({ width: '40px' }, 'slow')
     })
-
-
 
     //双击添加组件
     $('.li-item').dblclick(function () {
